@@ -1,0 +1,19 @@
+version: '3.8'
+
+services:
+  https-proxy:
+    build: .
+    network_mode: host  # 使用宿主机网络模式，可以直接访问宿主机上的服务
+    environment:
+      - HTTP_PORT=8080
+      - USER_CREDENTIALS=dpa_cn:$$2a$$10$$h3.cEuhfI/YFcKW/aVyG/eGpI.OWNs6B2uVxgI6jspbTi.dJMABgK
+      - SESSION_SECRET=your-secret-key-here
+      - NODE_ENV=production
+      - LOG_LEVEL=info
+      - TZ=UTC
+      - TARGET_HOST=localhost
+    volumes:
+      - ./certs:/app/certs:ro  # SSL 证书目录 (只读)
+      - ./logs:/app/logs       # 日志目录
+      - ./data:/app/data       # MFA 数据持久化目录
+    restart: unless-stopped
