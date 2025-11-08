@@ -1,4 +1,4 @@
-FROM node:18-alpine
+FROM node:24-alpine
 
 # 设置时区为 UTC
 ENV TZ=UTC
